@@ -1,0 +1,16 @@
+projectPath: /home/tano/workspace_autogenerate/autogen
+outputDirectory : /src/main/java
+options:
+    dtoLayer : true
+
+inputPackages:
+    jpaEntities : com.gae.piaz.autogen.model
+
+outputPackages:
+    repositories : com.gae.piaz.autogen.repository
+    services: com.gae.piaz.autogen.service
+    controllers: com.gae.piaz.autogen.controller
+  
+
+
+
