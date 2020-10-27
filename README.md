@@ -16,26 +16,22 @@ The generated classes require those libraries in pom.xml or build.gradle:
 
 Run with:
 
-**java -jar springboot-3layer-generator.jar settings.json**
+**java -jar springboot-3layer-generator.jar settings.yml**
 
-Example of settings.json :
+Example of settings.yml :
 
-```javascript
-{
-  "projectPath": "/home/tano/workspace_autogenerate/autogen",
+```yml
+projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator
+outputDirectory : /src/main/java
+options:
+    dtoLayer : true
 
-  "options": {
-    "dto-layer" : true
-  },
+inputPackages:
+    jpaEntities : com.gae.piaz.autogen.model
 
-  "input-packages": {
-    "jpa-entities" : "com.gae.piaz.autogen.model"
-  },
-
-  "output-packages": {
-    "repositories" : "com.gae.piaz.autogen.repository",
-    "services": "com.gae.piaz.autogen.service",
-    "controllers": "com.gae.piaz.autogen.controller"
-  }
-}
+outputPackages:
+    repositories : com.gae.piaz.autogen.repositorygen
+    services: com.gae.piaz.autogen.servicegen
+    controllers: com.gae.piaz.autogen.controllergen
+  
 ```
