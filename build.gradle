@@ -7,7 +7,6 @@ plugins {
 
 group = 'com.gae.piaz'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -36,3 +35,17 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+/*
+HOW to configure fat jar
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'gae.piaz.spring3layergen.Main'
+		)
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}*/
+

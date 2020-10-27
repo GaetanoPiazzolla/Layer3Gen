@@ -10,8 +10,10 @@ import gae.piaz.spring3layergen.config.CodeGeneratorConfig;
 import lombok.Data;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -54,6 +56,8 @@ public class CodeRenderer {
 
         private String primaryKeyClass;
         private CodeGeneratorConfig config;
+
+        private List<Field> entityFields;
 
         private Date dateGen = new Date();
 
