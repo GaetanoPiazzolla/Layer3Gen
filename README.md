@@ -52,5 +52,99 @@ outputPackages:
 gradlew layer3gen
 ```
 
-## Example:
-To know what kind of structure will be generated check the example project which uses this repository in the /demo folder.
+## Example: 
+Checkout the example project present in **/demo** folder.
+
+### Repository generated example class:
+```java
+@Repository
+public interface BooksRepository extends JpaRepository<Books, java.lang.Integer> {
+
+}
+```
+### Service generated example class:
+```java
+@Service
+public class BooksService implements CrudService<Books,java.lang.Integer> {
+
+    @Autowired
+    private BooksRepository repository;
+
+    @Override
+    public Books create(Books entity) {
+        return repository.save(entity);
+    }
+
+    @Override
+    public Books update(Books entity) {
+        return repository.save(entity);
+    }
+
+    @Override
+    public Page<Books> read(Books entity, Pageable pageable) {
+        Example<Books> example = Example.of(entity);
+        return repository.findAll(example,pageable);
+    }
+
+    @Override
+    public Books readOne(java.lang.Integer primaryKey) {
+        return repository.getOne(primaryKey);
+    }
+
+    @Override
+    public void delete(java.lang.Integer primaryKey) {
+        repository.deleteById(primaryKey);
+    }
+}
+```
+### Controller generated example class:
+```java
+@RestController
+@RequestMapping("/books-dto/")
+public class BooksControllerDTO implements CrudController<BooksDTO,java.lang.Integer>{
+
+    @Autowired
+    private BooksService service;
+
+    @Autowired
+    private BooksMapper mapper;
+
+    @Override
+    public ResponseEntity<BooksDTO> create(@RequestBody BooksDTO dto) {
+       Books entity = mapper.toEntity(dto);
+       entity = service.create(entity);
+       return ResponseEntity.ok(mapper.toDto(entity));
+    }
+
+    @Override
+    public ResponseEntity<BooksDTO> update(@RequestBody BooksDTO dto) {
+      Books entity = mapper.toEntity(dto);
+       entity = service.update(entity);
+       return ResponseEntity.ok(mapper.toDto(entity));
+    }
+
+    @Override
+    public ResponseEntity<Page<BooksDTO>> read(
+            @RequestBody BooksDTO dto,
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size) {
+        Pageable pageable = PageRequest.of(page,size);
+        Books entity = mapper.toEntity(dto);
+        Page<BooksDTO> pages = service.read(entity, pageable).map(mapper::toDto);
+        return ResponseEntity.ok(pages);
+    }
+
+    @Override
+    public ResponseEntity<BooksDTO> readOne(@PathVariable("id") java.lang.Integer primaryKey) {
+         Books entity = service.readOne(primaryKey);
+         return ResponseEntity.ok(mapper.toDto(entity));
+    }
+
+    @Override
+    public void delete(java.lang.Integer primaryKey) {
+        service.delete(primaryKey);
+    }
+}
+```
+
+
