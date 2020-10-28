@@ -5,12 +5,12 @@ Generates the standard SPRING layered CRUD architecture starting from JPA entiti
 2) services
 3) controller
 
-##How to:
-#####1- clone this repository and run
+## How to:
+##### 1- clone this repository and run
 ```shell script
 gradlew install
 ```
-#####2- configure build.gradle as follow:
+##### 2- configure build.gradle as follow:
 ```groovy
 
 buildscript {
@@ -29,7 +29,7 @@ layer3gen {
 	configPath = 'src/main/resources/3layer-settings.yml'
 }
 ```
-#####3- Create 3layer-settings.yml in your resource folder.
+##### 3- Create 3layer-settings.yml in your resource folder.
 Example of 3layer-setting.yml :
 
 ```yml
@@ -47,7 +47,7 @@ outputPackages:
     controllers: com.gae.piaz.autogen.controllergen
   
 ```
-#####4- run 
+##### 4- run 
 ```shell script
 gradlew layer3gen
 ```
