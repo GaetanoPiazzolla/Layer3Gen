@@ -1,24 +1,36 @@
-# springboot-3layer-generator
-Generates the standard SPRING layered architecture providing only JPA entities
+# Gradle plugin - layer3gen
+Generates the standard SPRING layered CRUD architecture starting from JPA entities.
 
-* repositories
-* services
-* controller
-* mapper ( entity - dto )
-* controller-dto
+1) repositories
+2) services
+3) controller
 
-The generated classes require those libraries in pom.xml or build.gradle: 
+##How to:
+#####1- clone this repository and run
+```shell script
+gradlew install
+```
+#####2- configure build.gradle as follow:
+```groovy
 
-* 'org.springframework.boot:spring-boot-starter-data-jpa' // repositories
-* 'org.springframework.boot:spring-boot-starter-web' // controller
-* 'org.mapstruct:mapstruct' // mapper
-* 'org.projectlombok:lombok' // autogen-utils
-
-Run with:
-
-**java -jar springboot-3layer-generator.jar settings.yml**
-
-Example of settings.yml :
+buildscript {
+	dependencies {
+		classpath 'gae.piaz:layer3gen:0.0.6-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		mavenLocal()
+	}
+}
+  // ...
+  // ...
+apply plugin: 'gae.piaz.layer3gen'
+layer3gen {
+	configPath = 'src/main/resources/3layer-settings.yml'
+}
+```
+#####3- Create 3layer-settings.yml in your resource folder.
+Example of 3layer-setting.yml :
 
 ```yml
 projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator
@@ -35,3 +47,10 @@ outputPackages:
     controllers: com.gae.piaz.autogen.controllergen
   
 ```
+#####4- run 
+```shell script
+gradlew layer3gen
+```
+
+## Example:
+To know what kind of structure will be generated check the example project which uses this repository in the /demo folder.
