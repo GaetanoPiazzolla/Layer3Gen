@@ -3,10 +3,11 @@ plugins {
 	id 'idea'
 	id 'java-gradle-plugin'
 	id 'maven'
+	id 'com.gradle.plugin-publish' version '0.12.0'
 }
 
 group = 'gae.piaz'
-version = '0.0.6-SNAPSHOT'
+version = '1.4'
 
 repositories {
 	mavenCentral()
@@ -34,20 +35,15 @@ gradlePlugin {
 	plugins {
 		simplePlugin {
 			id = 'gae.piaz.layer3gen'
+			displayName = 'Layer 3 Gen'
+			description = 'Generates Spring standard 3 layer classes (Controller, Service, Repository) starting from JPA entities'
 			implementationClass = 'gae.piaz.layer3gen.gradle.Layer3GenPlugin'
 		}
 	}
 }
 
-/*
-HOW to configure fat jar
-jar {
-	manifest {
-		attributes(
-				'Main-Class': 'gae.piaz.spring3layergen.Main'
-		)
-	}
-	from {
-		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-	}
-}*/
+pluginBundle {
+	website = 'https://github.com/GaetanoPiazzolla/springboot-3layer-generator'
+	vcsUrl = 'https://github.com/GaetanoPiazzolla/springboot-3layer-generator'
+	tags = ['jpa', 'code-generation', 'spring', 'spring-data']
+}

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Layer3GenExtension {
 
-    private String configPath = "3layer-settings.yml";
+    private String configPath = "src/main/resources/3layer-settings.yml";
 
 }
