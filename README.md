@@ -23,7 +23,9 @@ apply plugin: 'gae.piaz.layer3gen'
 ##### 2- Create the file _3layer-settings.yml_ in src/main/resources/ folder.
 Example:
 ```yml
+# linux:
 projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator
+# windows: #projectPath: C://workspace_reca//..
 outputDirectory : /src/main/java
 options:
     dtoLayer : true
