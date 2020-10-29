@@ -33,7 +33,9 @@ layer3gen {
 Example of 3layer-setting.yml :
 
 ```yml
+# linux:
 projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator
+# windows: #projectPath: C://workspace_reca//..
 outputDirectory : /src/main/java
 options:
     dtoLayer : true
