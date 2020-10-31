@@ -1,4 +1,5 @@
 projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
+classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
   dtoLayer : true

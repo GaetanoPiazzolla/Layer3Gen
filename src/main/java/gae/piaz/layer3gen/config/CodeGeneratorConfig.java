@@ -26,6 +26,7 @@ import java.io.*;
 public class CodeGeneratorConfig implements Serializable {
 
     private String projectPath;
+    private String classesDirectory;
     private String outputDirectory;
     private Options options;
     private InputPackages inputPackages;

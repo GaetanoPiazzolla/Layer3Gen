@@ -1,11 +1,10 @@
 
 buildscript {
 	dependencies {
-		classpath 'gae.piaz:layer3gen:0.0.6-SNAPSHOT'
+		classpath "gradle.plugin.gae.piaz:layer3gen:1.5"
 	}
 	repositories {
 		mavenCentral()
-		mavenLocal()
 	}
 }
 plugins {
@@ -16,7 +15,6 @@ plugins {
 
 repositories {
 	mavenCentral()
-	mavenLocal()
 }
 
 group = 'com.example'
@@ -47,6 +45,3 @@ test {
 }
 
 apply plugin: 'gae.piaz.layer3gen'
-layer3gen {
-	configPath = 'src/main/resources/3layer-settings.yml'
-}

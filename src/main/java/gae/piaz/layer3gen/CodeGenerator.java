@@ -3,12 +3,10 @@ package gae.piaz.layer3gen;
 import freemarker.template.TemplateException;
 import gae.piaz.layer3gen.config.CodeGeneratorConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.maven.project.MavenProject;
 import org.gradle.api.Project;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.SourceSetContainer;
-import org.gradle.internal.impldep.org.apache.maven.Maven;
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 
@@ -30,20 +28,6 @@ public class CodeGenerator {
 
     private static URLClassLoader classLoader;
 
-    public static void runMaven(CodeGeneratorConfig arg, MavenProject project) throws IOException, TemplateException {
-        config = arg;
-        log.debug("configuration: {}",config);
-
-        setClassLoader(project);
-        log.debug("ClassLoader: {}", classLoader);
-
-        Set<Class<?>> entities = getEntityClasses();
-        log.debug("found {} entities",entities.size());
-
-        generateCode(entities);
-    }
-
-
     public static void runGradle(CodeGeneratorConfig arg, Project project) throws Exception {
 
         config = arg;
@@ -54,8 +38,25 @@ public class CodeGenerator {
 
         Set<Class<?>> entities = getEntityClasses();
         log.debug("found {} entities",entities.size());
-
         generateCode(entities);
+    }
+
+    public static void runMain(CodeGeneratorConfig arg) throws IOException, TemplateException {
+        config = arg;
+        log.debug("configuration: {}",config);
+
+        setClassLoader();
+        log.debug("ClassLoader: {}", classLoader);
+
+        Set<Class<?>> entities = getEntityClasses();
+        log.debug("found {} entities",entities.size());
+        generateCode(entities);
+    }
+
+    private static void setClassLoader() throws MalformedURLException {
+        final File classes = new File(Paths.get(config.getProjectPath(), config.getClassesDirectory()).toString());
+        List<URL> listOfURL = List.of(classes.toURI().toURL());
+        classLoader = new java.net.URLClassLoader(listOfURL.toArray(new URL[0]));
     }
 
     private static void setClassLoader(Project project) throws MalformedURLException {
@@ -67,13 +68,6 @@ public class CodeGenerator {
         }
         classLoader = new java.net.URLClassLoader(listOfURL.toArray(new URL[0]));
     }
-
-    private static void setClassLoader(MavenProject project) throws MalformedURLException {
-        final File classes = new File(project.getBuild().getOutputDirectory());
-        List<URL> listOfURL = List.of(classes.toURI().toURL());
-        classLoader = new java.net.URLClassLoader(listOfURL.toArray(new URL[0]));
-    }
-
 
     private static void generateCode(Set<Class<?>> entities) throws IOException, TemplateException {
 
@@ -228,6 +222,7 @@ public class CodeGenerator {
         }
         return ids.stream().findFirst().get().getType().getName();
     }
+
 
 
 }

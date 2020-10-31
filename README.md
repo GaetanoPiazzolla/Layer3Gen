@@ -11,7 +11,7 @@ Generates the standard SPRING layered CRUD architecture starting from JPA entiti
 
 buildscript {
 	dependencies {
-		classpath "gradle.plugin.gae.piaz:layer3gen:1.4"
+		classpath "gradle.plugin.gae.piaz:layer3gen:1.5"
 	}
 	// ....
 }
@@ -26,7 +26,7 @@ Example:
 # linux:
 projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator
 # windows: #projectPath: C://workspace_reca//..
-outputDirectory : /src/main/java
+outputDirectory : src/main/java
 options:
     dtoLayer : true
 
