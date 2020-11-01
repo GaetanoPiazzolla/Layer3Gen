@@ -17,7 +17,7 @@ public class Layer3GenTask extends DefaultTask {
         if (ext == null) {
             ext = new Layer3GenExtension();
         }
-        CodeGeneratorConfig config = CodeGeneratorConfig.load(ext.getConfigPath());
-        CodeGenerator.runGradle(config,getProject());
+        CodeGeneratorConfig config = CodeGeneratorConfig.load(ext.getConfigPath(),true);
+        CodeGenerator.run(config,ClassLoaderBuilderGradle.getClassLoader(getProject()));
     }
 }

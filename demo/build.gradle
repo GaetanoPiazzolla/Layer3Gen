@@ -1,7 +1,7 @@
 
 buildscript {
 	dependencies {
-		classpath "gradle.plugin.gae.piaz:layer3gen:1.5"
+		classpath "gradle.plugin.gae.piaz:layer3gen:1.6"
 	}
 	repositories {
 		mavenCentral()

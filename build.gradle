@@ -3,11 +3,12 @@ plugins {
 	id 'idea'
 	id 'java-gradle-plugin'
 	id 'maven'
+	id 'application'
 	id 'com.gradle.plugin-publish' version '0.12.0'
 }
 
 group = 'gae.piaz'
-version = '1.5'
+version = '1.6'
 
 repositories {
 	mavenCentral()
@@ -17,6 +18,7 @@ dependencies {
 
 	implementation 'org.yaml:snakeyaml:1.23' // parse yml
 	implementation 'org.slf4j:slf4j-api:1.7.25' // logging
+	implementation 'org.slf4j:slf4j-log4j12:1.7.25'
 	implementation 'com.google.guava:guava:26.0-jre' // needed but don't know why
 	implementation 'org.apache.commons:commons-lang3:3.8.1' // utils
 
@@ -44,18 +46,29 @@ gradlePlugin {
 	}
 }
 
-task fatJar(type: Jar) {
-	manifest {
-		attributes 'Main-Class': 'gae.piaz.layer3gen.main.Layer3GenMain',
-					'Class-Path': configurations.runtimeClasspath.files.collect {"$it.name"}.join(' ')
-	}
-	baseName = project.name + '-runnable'
-	from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-	with jar
-}
-
 pluginBundle {
 	website = 'https://github.com/GaetanoPiazzolla/springboot-3layer-generator'
 	vcsUrl = 'https://github.com/GaetanoPiazzolla/springboot-3layer-generator'
 	tags = ['jpa', 'code-generation', 'spring', 'spring-data']
 }
+
+application {
+	mainClass = 'gae.piaz.layer3gen.main.Layer3GenMain'
+}
+
+distZip {
+	into(project.name + '-' + project.version + '/bin') {
+		from './conf'
+		include '*'
+	}
+	exclude 'gradle-api-6.6.1.jar'
+}
+
+installDist {
+	into('bin') {
+		from './conf'
+		include '*'
+	}
+	exclude 'gradle-api-6.6.1.jar'
+}
+

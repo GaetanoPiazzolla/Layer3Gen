@@ -1,47 +1,51 @@
-# Gradle plugin - layer3gen
+# Layer3gen
 Generates the standard SPRING layered CRUD architecture starting from JPA entities.
 
 1) repositories
 2) services
 3) controller
 
-## How to:
-##### 1- configure build.gradle as follow:
-```groovy
+## How to run as a standalone application:
+##### 1- Download and extract the ZIP file from the folder _/distribution_ ;
+##### 2- Edit the file in /bin directory named _3layer-settings.yml_;
+##### 3- Run the application ( layer3gen.sh or layer3gen.bat).
 
+## How to run as gradle plugin:
+##### 1- Add the plugin in your build.gradle;
+```groovy
 buildscript {
 	dependencies {
-		classpath "gradle.plugin.gae.piaz:layer3gen:1.5"
+		classpath "gradle.plugin.gae.piaz:layer3gen:1.6"
 	}
+
 	// ....
 }
+
   // ...
-  // ...
+
 apply plugin: 'gae.piaz.layer3gen'
-
 ```
-##### 2- Create the file _3layer-settings.yml_ in src/main/resources/ folder.
-Example:
-```yml
-# linux:
-projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator
-# windows: #projectPath: C://workspace_reca//..
-outputDirectory : src/main/java
-options:
-    dtoLayer : true
-
-inputPackages:
-    jpaEntities : com.gae.piaz.autogen.model
-
-outputPackages:
-    repositories : com.gae.piaz.autogen.repositorygen
-    services: com.gae.piaz.autogen.servicegen
-    controllers: com.gae.piaz.autogen.controllergen
-  
-```
-##### 3- run 
+##### 2- Create a file named _3layer-settings.yml_ in the directory src/main/resources/;
+##### 3- Run the gradle task
 ```shell script
 gradlew layer3gen
+```
+
+## 3layer-settings.yml configuration template:
+```yml
+projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
+classesDirectory: build/classes/java/main
+outputDirectory : src/main/java
+options:
+  dtoLayer : true
+
+inputPackages:
+  jpaEntities : com.example.demo.model
+
+outputPackages:
+  repositories : com.example.demo.repository
+  services: com.example.demo.service
+  controllers: com.example.demo.controller
 ```
 
 ## Examples: 
