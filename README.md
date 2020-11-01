@@ -4,27 +4,27 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 ![sketch](./doc/3layer-sketch.png)
 * * *
 ## How to run as a standalone application:
-##### 1- Download and extract the ZIP file from the folder _/distribution_ ;
-##### 2- Edit the file in /bin directory named _3layer-settings.yml_;
-##### 3- Run the application ( layer3gen.sh or layer3gen.bat).
+1. Download and extract the ZIP file from the folder _/distribution_;
+2. Edit the file in /bin directory named _3layer-settings.yml_;
+3. Run the application ( layer3gen.sh or layer3gen.bat).
 
 ## How to run as gradle plugin:
-##### 1- Add the plugin in your build.gradle;
+1. Add the plugin in your build.gradle;
+
 ```groovy
 buildscript {
-	dependencies {
-		classpath "gradle.plugin.gae.piaz:layer3gen:1.6"
-	}
-
-	// ....
+    dependencies {
+	classpath "gradle.plugin.gae.piaz:layer3gen:1.6"
+    }
+    // ....
 }
-
-  // ...
-
+// ...
 apply plugin: 'gae.piaz.layer3gen'
 ```
-##### 2- Create a file named _3layer-settings.yml_ in the directory src/main/resources/;
-##### 3- Run the gradle task
+
+2. Create a file named _3layer-settings.yml_ in the directory src/main/resources/;
+3. Run the gradle task.
+
 ```shell script
 gradlew layer3gen
 ```
