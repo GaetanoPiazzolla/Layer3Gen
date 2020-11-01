@@ -6,7 +6,7 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 ## How to run as a standalone application:
 1. Download and extract the ZIP file from the folder _/distribution_;
 2. Edit the file in /bin directory named _3layer-settings.yml_;
-3. Run the application ( layer3gen.sh or layer3gen.bat).
+3. Run the application (layer3gen.sh or layer3gen.bat).
 
 ## How to run as gradle plugin:
 1. Add the plugin in your build.gradle;
