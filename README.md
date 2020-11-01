@@ -1,8 +1,8 @@
 # Layer3gen
 Generates the standard SPRING 3 layer CRUD architecture starting from JPA entities.
-
+* * *
 ![sketch](./doc/3layer-sketch.png)
-
+* * *
 ## How to run as a standalone application:
 ##### 1- Download and extract the ZIP file from the folder _/distribution_ ;
 ##### 2- Edit the file in /bin directory named _3layer-settings.yml_;
