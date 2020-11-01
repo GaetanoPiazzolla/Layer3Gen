@@ -1,9 +1,11 @@
 # Layer3gen
-Generates the standard SPRING layered CRUD architecture starting from JPA entities.
+Generates the standard SPRING 3 layer CRUD architecture starting from JPA entities.
 
 1) repositories
 2) services
 3) controller
+
+![sketch](./doc/3layer-sketch.png)
 
 ## How to run as a standalone application:
 ##### 1- Download and extract the ZIP file from the folder _/distribution_ ;
