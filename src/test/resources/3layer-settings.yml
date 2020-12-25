@@ -1,13 +1,14 @@
-projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
+projectPath: C:\\workspace_private\\springboot-3layer-generator\demo
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
   dtoLayer : true
+  serviceInterface: true
 
 inputPackages:
   jpaEntities : com.example.demo.model
 
 outputPackages:
   repositories : com.example.demo.repository
-  services: com.example.demo.service
+  services: com.example.demo.serviceInterface
   controllers: com.example.demo.controller
