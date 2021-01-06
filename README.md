@@ -32,6 +32,7 @@ gradlew layer3gen
 ## 3layer-settings.yml configuration template:
 ```yml
 projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
+# projectPath: c://workspace_private/springboot-3layer-generator/demo
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:

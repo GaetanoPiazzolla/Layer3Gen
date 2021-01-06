@@ -2,6 +2,7 @@ projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
 outputDirectory : src/main/java
 options:
   dtoLayer : true
+  serviceInterface: true
 
 inputPackages:
   jpaEntities : com.example.demo.model

@@ -3,6 +3,7 @@ classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
   dtoLayer : true
+  serviceInterface: true
 
 inputPackages:
   jpaEntities : com.example.demo.model
