@@ -16,7 +16,7 @@ public final class ClassLoaderBuilderMain {
     public static URLClassLoader getClassLoader(CodeGeneratorConfig config) throws MalformedURLException {
         final File classes = new File(Paths.get(config.getProjectPath(), config.getClassesDirectory()).toString());
         List<URL> listOfURL = List.of(classes.toURI().toURL());
-        return new java.net.URLClassLoader(listOfURL.toArray(new URL[0]));
+        return new URLClassLoader(listOfURL.toArray(new URL[0]));
     }
 
 }

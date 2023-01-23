@@ -4,7 +4,7 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 ![sketch](./doc/3layer-sketch.png)
 * * *
 ## How to run as a standalone application:
-1. Download and extract the ZIP file from the folder _/distribution_;
+1. Download and extract the ZIP/TAR file from [releases](https://github.com/GaetanoPiazzolla/Layer3Gen/releases);
 2. Edit the file in /bin directory named _3layer-settings.yml_;
 3. Run the application (layer3gen.sh or layer3gen.bat).
 
@@ -14,7 +14,7 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 ```groovy
 buildscript {
     dependencies {
-	classpath "gradle.plugin.gae.piaz:layer3gen:1.7"
+	classpath "gradle.plugin.gae.piaz:layer3gen:1.8"
     }
     // ....
 }
@@ -49,7 +49,7 @@ outputPackages:
 ```
 
 ## Examples: 
-Checkout the example project with generated classes present in **/demo** folder.
+Checkout the example project with generated classes present in **/demo** and **/demo-jakarta** folder.
 
 ### Repository generated example class:
 ```java
@@ -143,4 +143,4 @@ public class BooksControllerDTO implements CrudController<BooksDTO,java.lang.Int
 }
 ```
 
-
+Other insight can be found in this blog post: https://medium.com/p/49f3fbbc7b2d

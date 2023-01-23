@@ -1,4 +1,4 @@
-projectPath: C:\\workspace_private\\springboot-3layer-generator\demo
+projectPath: /Users/Gaetano_Piazzolla/Workspaces/workspace_private/Layer3Gen/demo
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:

@@ -2,13 +2,13 @@ plugins {
 	id 'java'
 	id 'idea'
 	id 'java-gradle-plugin'
-	id 'maven'
+	id 'maven-publish'
 	id 'application'
 	id 'com.gradle.plugin-publish' version '0.12.0'
 }
 
 group = 'gae.piaz'
-version = '1.7'
+version = '1.8'
 
 repositories {
 	mavenCentral()
@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.8.1' // utils
 
 	implementation 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final' // @Entity class needed
+	implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0' // jakarta @Entity
+
 	implementation 'org.reflections:reflections:0.9.11' // read classes
 	implementation 'org.freemarker:freemarker:2.3.23'// write classes
 

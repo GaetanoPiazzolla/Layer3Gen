@@ -1,4 +1,4 @@
-projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
+projectPath: /Users/Gaetano_Piazzolla/Workspaces/workspace_private/Layer3Gen/demo
 outputDirectory : src/main/java
 options:
   dtoLayer : true

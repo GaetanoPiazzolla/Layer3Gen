@@ -8,7 +8,6 @@ import org.reflections.scanners.FieldAnnotationsScanner;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.net.MalformedURLException;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,11 +61,11 @@ public class CodeGenerator {
 
     }
 
-    private static Set<Class<?>> getEntityClasses() throws MalformedURLException {
-
+    private static Set<Class<?>> getEntityClasses() {
         Reflections reflections = new Reflections(config.getInputPackages().getJpaEntities(), classLoader);
-        return reflections.getTypesAnnotatedWith(javax.persistence.Entity.class);
-
+        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(javax.persistence.Entity.class);
+        classes.addAll(reflections.getTypesAnnotatedWith(jakarta.persistence.Entity.class));
+        return classes;
     }
 
 
@@ -235,8 +234,11 @@ public class CodeGenerator {
         Reflections reflections = new Reflections(entity, classLoader, new FieldAnnotationsScanner());
 
         Set<Field> ids = reflections.getFieldsAnnotatedWith(javax.persistence.Id.class);
+        ids.addAll(reflections.getFieldsAnnotatedWith(jakarta.persistence.Id.class));
         if (ids.isEmpty()) {
             ids = reflections.getFieldsAnnotatedWith(javax.persistence.EmbeddedId.class);
+            ids.addAll(reflections.getFieldsAnnotatedWith(javax.persistence.EmbeddedId.class));
+
             if (ids.isEmpty()) {
                 log.warn("No @Id found for " + entity + " using generic object  \"Object\" ");
                 return "Object";

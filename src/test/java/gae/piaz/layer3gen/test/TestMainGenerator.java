@@ -11,13 +11,16 @@ import java.io.IOException;
 
 public class TestMainGenerator {
 
-
     @Test
     public void testGeneration() throws IOException, TemplateException {
-
         CodeGeneratorConfig config = CodeGeneratorConfig.load("3layer-settings.yml",true);
         CodeGenerator.run(config,ClassLoaderBuilderMain.getClassLoader(config));
+    }
 
+    @Test
+    public void testJakartaGeneration() throws IOException, TemplateException {
+        CodeGeneratorConfig config = CodeGeneratorConfig.load("3layer-settings-jakarta.yml",true);
+        CodeGenerator.run(config,ClassLoaderBuilderMain.getClassLoader(config));
     }
 
 }
