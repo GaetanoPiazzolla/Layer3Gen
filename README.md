@@ -14,7 +14,7 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 ```groovy
 buildscript {
     dependencies {
-	classpath "gradle.plugin.gae.piaz:layer3gen:1.8"
+	classpath "gae.piaz:layer3gen:1.8"
     }
     // ....
 }
