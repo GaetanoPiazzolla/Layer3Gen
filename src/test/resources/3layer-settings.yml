@@ -10,6 +10,6 @@ inputPackages:
   jpaEntities : com.example.demo.model
 
 outputPackages:
-  repositories : com.example.demo.repository.ytee
+  repositories : com.example.demo.repository
   services: com.example.demo.serviceInterface
   controllers: com.example.demo.controller
