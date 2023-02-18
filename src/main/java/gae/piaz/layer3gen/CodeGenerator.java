@@ -3,6 +3,7 @@ package gae.piaz.layer3gen;
 import freemarker.template.TemplateException;
 import gae.piaz.layer3gen.config.CodeGeneratorConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 
@@ -13,10 +14,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
 public class CodeGenerator {
+
+    // Utility class such CodeGenerator that have all method as static should have private constructor
+    // Code smell : java:S1118
+    private CodeGenerator() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static CodeGeneratorConfig config;
 
@@ -43,16 +51,18 @@ public class CodeGenerator {
 
             createRepository(entity);
 
-            if (config.getOptions().getServiceInterface()) {
+            if (Boolean.TRUE.equals(config.getOptions().getServiceInterface())) {
                 createServiceBean(entity);
                 createServiceInterface(entity);
             } else {
                 createService(entity);
             }
 
-            createController(entity);
+            if (Boolean.TRUE.equals(config.getOptions().getEntityControllers())){
+                createController(entity);
+            }
 
-            if (config.getOptions().getDtoLayer()) {
+            if (Boolean.TRUE.equals(config.getOptions().getDtoLayer())) {
                 createDto(entity);
                 createMapper(entity);
                 createControllerDTO(entity);
@@ -78,8 +88,9 @@ public class CodeGenerator {
         data.setEntityPackage(entity.getPackageName());
         String code = CodeRenderer.render("controllerdto.ftl", data);
 
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getControllers().replaceAll("\\.", "/") + "/" + entity.getSimpleName() + "ControllerDTO.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getControllers().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "ControllerDTO.java").toString();
 
         writeFile(code, filepath);
 
@@ -87,15 +98,19 @@ public class CodeGenerator {
 
     private static void createMapper(Class<?> entity) throws IOException, TemplateException {
 
+        if(StringUtils.isBlank(config.getOutputPackages().getMappers())){
+            config.getOutputPackages().setMappers(config.getOutputPackages().getServices() + ".mapper");
+        }
+
         CodeRenderer.RenderingData data = new CodeRenderer.RenderingData();
         data.setConfig(config);
         data.setEntityClass(entity.getSimpleName());
         data.setEntityPackage(entity.getPackageName());
 
         String code = CodeRenderer.render("mapper.ftl", data);
-
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getServices().replaceAll("\\.", "/") + "/mapper/" + entity.getSimpleName() + "Mapper.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getMappers().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "Mapper.java").toString();
 
         writeFile(code, filepath);
 
@@ -103,15 +118,19 @@ public class CodeGenerator {
 
     private static void createDto(Class<?> entity) throws IOException, TemplateException {
 
+        if(StringUtils.isBlank(config.getOutputPackages().getDtos())){
+            config.getOutputPackages().setDtos(config.getOutputPackages().getControllers() + ".dto");
+        }
+
         CodeRenderer.RenderingData data = new CodeRenderer.RenderingData();
         data.setConfig(config);
         data.setEntityClass(entity.getSimpleName());
         data.setEntityFields(Arrays.asList(entity.getDeclaredFields()));
 
         String code = CodeRenderer.render("dto.ftl", data);
-
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getControllers().replaceAll("\\.", "/") + "/dto/" + entity.getSimpleName() + "DTO.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getDtos().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "DTO.java").toString();
 
         writeFile(code, filepath);
 
@@ -126,8 +145,9 @@ public class CodeGenerator {
         data.setEntityPackage(entity.getPackageName());
         String code = CodeRenderer.render("controller.ftl", data);
 
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getControllers().replaceAll("\\.", "/") + "/" + entity.getSimpleName() + "Controller.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getControllers().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "Controller.java").toString();
 
         writeFile(code, filepath);
 
@@ -143,8 +163,9 @@ public class CodeGenerator {
 
         String code = CodeRenderer.render("service.ftl", data);
 
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getServices().replaceAll("\\.", "/") + "/" + entity.getSimpleName() + "Service.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getServices().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "Service.java").toString();
 
         writeFile(code, filepath);
 
@@ -160,8 +181,9 @@ public class CodeGenerator {
 
         String code = CodeRenderer.render("serviceInterface.ftl", data);
 
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getServices().replaceAll("\\.", "/") + "/" + entity.getSimpleName() + "Service.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getServices().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "Service.java").toString();
 
         writeFile(code, filepath);
 
@@ -177,9 +199,9 @@ public class CodeGenerator {
 
         String code = CodeRenderer.render("serviceBean.ftl", data);
 
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getServices().replaceAll("\\.", "/")
-                + "/impl/" + entity.getSimpleName() + "ServiceBean.java";
+        String filepath = Paths.get(config.getProjectPath(), config.getOutputDirectory(),
+                config.getOutputPackages().getServices().replaceAll("\\.", "/"),
+                "impl", entity.getSimpleName() + "ServiceBean.java").toString();
 
         writeFile(code, filepath);
 
@@ -191,13 +213,13 @@ public class CodeGenerator {
         data.setConfig(config);
 
         String code = CodeRenderer.render("crudservice.ftl", data);
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getServices().replaceAll("\\.", "/") + "/" + "CrudService.java";
+        String filepath = Paths.get(config.getProjectPath() , config.getOutputDirectory(),
+                config.getOutputPackages().getServices().replaceAll("\\.", "/"), "CrudService.java").toString();
         writeFile(code, filepath);
 
         code = CodeRenderer.render("crudcontroller.ftl", data);
-        filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getControllers().replaceAll("\\.", "/") + "/" + "CrudController.java";
+        filepath = Paths.get(config.getProjectPath() , config.getOutputDirectory() ,
+                config.getOutputPackages().getControllers().replaceAll("\\.", "/"), "CrudController.java").toString();
         writeFile(code, filepath);
 
     }
@@ -211,8 +233,9 @@ public class CodeGenerator {
 
         String code = CodeRenderer.render("repository.ftl", data);
 
-        String filepath = config.getProjectPath() + "/" + config.getOutputDirectory() + "/" +
-                config.getOutputPackages().getRepositories().replaceAll("\\.", "/") + "/" + entity.getSimpleName() + "Repository.java";
+        String filepath = Paths.get(config.getProjectPath() , config.getOutputDirectory(),
+                config.getOutputPackages().getRepositories().replaceAll("\\.", "/"),
+                entity.getSimpleName() + "Repository.java").toString();
 
         writeFile(code, filepath);
 

@@ -1,14 +1,15 @@
-projectPath: /Users/Gaetano_Piazzolla/Workspaces/workspace_private/Layer3Gen/demo
+projectPath: demo
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
   dtoLayer : true
   serviceInterface: true
+  entityControllers: true
 
 inputPackages:
   jpaEntities : com.example.demo.model
 
 outputPackages:
-  repositories : com.example.demo.repository
+  repositories : com.example.demo.repository.ytee
   services: com.example.demo.serviceInterface
   controllers: com.example.demo.controller

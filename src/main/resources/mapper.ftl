@@ -1,7 +1,7 @@
-package ${config.outputPackages.services}.mapper;
+package ${config.outputPackages.mappers};
 
 import ${entityPackage}.${entityClass};
-import ${config.outputPackages.controllers}.dto.${entityClass}DTO;
+import ${config.outputPackages.dtos}.${entityClass}DTO;
 import org.mapstruct.Mapper;
 
 /**

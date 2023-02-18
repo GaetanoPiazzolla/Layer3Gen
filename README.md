@@ -3,6 +3,16 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 * * *
 ![sketch](./doc/3layer-sketch.png)
 * * *
+## Enhancements 
+1. Adding option to generate only controllerDto
+2. Adding option to specify dto package name
+3. Adding option to specify mapper package name
+4. Adding option to exclude generation of CrudController interface
+5. Adding option to exclude generation of CrudService interface
+6. Fix reading verb in controller
+7. Remove extra imports from Dto
+8. Remove static project path from setting yaml in testing and update output package
+
 ## How to run as a standalone application:
 1. Download and extract the ZIP/TAR file from [releases](https://github.com/GaetanoPiazzolla/Layer3Gen/releases);
 2. Edit the file in /bin directory named _3layer-settings.yml_;
@@ -21,12 +31,18 @@ buildscript {
 // ...
 apply plugin: 'gae.piaz.layer3gen'
 ```
+or for gradle version above
 
-2. Create a file named _3layer-settings.yml_ in the directory src/main/resources/;
+```groovy
+plugins {
+    id "gae.piaz.layer3gen" version "1.8"
+}
+```
+2. Create a file named _3layer-settings.yml_ (you willl find an example below) in the directory src/main/resources/;
 3. Run the gradle task.
 
 ```shell script
-gradlew layer3gen
+gradlew clean build layer3gen
 ```
 
 ## 3layer-settings.yml configuration template:
@@ -38,6 +54,7 @@ outputDirectory : src/main/java
 options:
   dtoLayer : true
   serviceInterface: true
+  entityControllers: false # whatever to generate controller using jpa entity or not
 
 inputPackages:
   jpaEntities : com.example.demo.model
@@ -46,6 +63,8 @@ outputPackages:
   repositories : com.example.demo.repository
   services: com.example.demo.service
   controllers: com.example.demo.controller
+  dtos: gae.piaz.layer3gen.output.dtos # if this in not specified the dto package will be under the controllers package
+  mappers: gae.piaz.layer3gen.output.mappers # if this in not specified the mapper package will be under the services package
 ```
 
 ## Examples: 
@@ -77,14 +96,13 @@ public class BooksService implements CrudService<Books,java.lang.Integer> {
     }
 
     @Override
-    public Page<Books> read(Books entity, Pageable pageable) {
-        Example<Books> example = Example.of(entity);
-        return repository.findAll(example,pageable);
+    public Page<Book> read(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
-    public Books readOne(java.lang.Integer primaryKey) {
-        return repository.getOne(primaryKey);
+    public Optional<Book> readOne(java.lang.Integer primaryKey) {
+        return repository.findById(primaryKey);
     }
 
     @Override
@@ -120,20 +138,18 @@ public class BooksControllerDTO implements CrudController<BooksDTO,java.lang.Int
     }
 
     @Override
-    public ResponseEntity<Page<BooksDTO>> read(
-            @RequestBody BooksDTO dto,
+    public ResponseEntity<Page<BookDTO>> read(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size) {
         Pageable pageable = PageRequest.of(page,size);
-        Books entity = mapper.toEntity(dto);
-        Page<BooksDTO> pages = service.read(entity, pageable).map(mapper::toDto);
+        Page<BookDTO> pages = service.read(pageable).map(mapper::toDto);
         return ResponseEntity.ok(pages);
     }
 
     @Override
-    public ResponseEntity<BooksDTO> readOne(@PathVariable("id") java.lang.Integer primaryKey) {
-         Books entity = service.readOne(primaryKey);
-         return ResponseEntity.ok(mapper.toDto(entity));
+    public ResponseEntity<BookDTO> readOne(@PathVariable("id") java.lang.Integer primaryKey) {
+        Optional<Book> entity = service.readOne(primaryKey);
+        return entity.map(e -> ResponseEntity.ok(mapper.toDto(e))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override

@@ -1,4 +1,4 @@
-projectPath: /Users/Gaetano_Piazzolla/Workspaces/workspace_private/Layer3Gen/demo-jakarta
+projectPath: demo-jakarta
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
