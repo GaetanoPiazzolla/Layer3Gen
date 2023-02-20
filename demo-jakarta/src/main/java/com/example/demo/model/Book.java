@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.*;
 
 /**
  * The persistent class for the books database table.
