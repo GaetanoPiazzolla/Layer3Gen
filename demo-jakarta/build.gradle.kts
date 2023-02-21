@@ -31,10 +31,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation( "org.springframework.boot:spring-boot-starter-web")
     implementation ("org.mapstruct:mapstruct:1.3.1.Final")
-    compileOnly( "org.projectlombok:lombok:1.18.2")
+    compileOnly( "org.projectlombok:lombok:1.18.26")
 
     annotationProcessor( "org.mapstruct:mapstruct-processor:1.3.1.Final")
-    annotationProcessor( "org.projectlombok:lombok:1.18.24")
+    annotationProcessor( "org.projectlombok:lombok:1.18.26")
     
 }
 
