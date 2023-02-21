@@ -1,13 +1,12 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
 
 /**
  * The persistent class for the users database table.
- * 
+ *
  */
 @Entity
 @Table(name="users")

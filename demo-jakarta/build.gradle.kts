@@ -1,7 +1,7 @@
 
 buildscript {
     dependencies {
-        classpath("gae.piaz:layer3gen:1.9")
+        classpath("gae.piaz:layer3gen:1.8")
     }
     repositories {
         mavenCentral()
