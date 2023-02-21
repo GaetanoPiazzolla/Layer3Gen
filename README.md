@@ -3,15 +3,6 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 * * *
 ![sketch](./doc/3layer-sketch.png)
 * * *
-## Enhancements 
-1. Adding option to generate only controllerDto
-2. Adding option to specify dto package name
-3. Adding option to specify mapper package name
-4. Adding option to exclude generation of CrudController interface
-5. Adding option to exclude generation of CrudService interface
-6. Fix reading verb in controller
-7. Remove extra imports from Dto
-8. Remove static project path from setting yaml in testing and update output package
 
 ## How to run as a standalone application:
 1. Download and extract the ZIP/TAR file from [releases](https://github.com/GaetanoPiazzolla/Layer3Gen/releases);
@@ -31,7 +22,7 @@ buildscript {
 // ...
 apply plugin: 'gae.piaz.layer3gen'
 ```
-or for gradle version above
+or for gradle version above 2.1
 
 ```groovy
 plugins {
@@ -52,8 +43,8 @@ projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
-  dtoLayer : true
-  serviceInterface: true
+  dtoLayer : true # generates the dto from entities, controller using dto, and mapper layer
+  serviceInterface: true # whatever to generate CrudService Interface or not
   entityControllers: false # whatever to generate controller using jpa entity or not
 
 inputPackages:
