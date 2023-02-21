@@ -37,7 +37,7 @@ public class OrderServiceBean implements OrderService {
 
     @Override
     public Optional<Order> readOne(java.lang.Integer primaryKey) {
-        return repository.getOne(primaryKey);
+        return repository.findById(primaryKey);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class ${entityClass}ServiceBean implements ${entityClass}Service {
 
     @Override
     public Optional<${entityClass}> readOne(${primaryKeyClass} primaryKey) {
-        return repository.getOne(primaryKey);
+        return repository.findById(primaryKey);
     }
 
     @Override

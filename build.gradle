@@ -28,11 +28,11 @@ dependencies {
 	implementation 'org.reflections:reflections:0.9.11' // read classes
 	implementation 'org.freemarker:freemarker:2.3.23'// write classes
 
-	compileOnly 'org.projectlombok:lombok:1.18.2' // autogenerate setter getter etc
+	compileOnly 'org.projectlombok:lombok:1.18.26' // autogenerate setter getter etc
 	compileOnly gradleApi() // gradle plugin
 
 	annotationProcessor "org.mapstruct:mapstruct-processor:1.3.1.Final"
-	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
 	testImplementation 'junit:junit:4.12'
 }
