@@ -1,4 +1,4 @@
-projectPath: /home/workspace/demo
+projectPath: ./
 outputDirectory : src/main/java
 options:
   dtoLayer : true

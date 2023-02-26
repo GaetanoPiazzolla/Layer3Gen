@@ -1,8 +1,5 @@
 
 buildscript {
-	dependencies {
-		classpath "gae.piaz:layer3gen:1.9"
-	}
 	repositories {
 		mavenCentral()
 	}
@@ -11,6 +8,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id "gae.piaz.layer3gen" version "1.9"
 }
 
 repositories {
@@ -37,5 +35,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-apply plugin: 'gae.piaz.layer3gen'

@@ -13,6 +13,13 @@ Generates the standard SPRING 3 layer CRUD architecture starting from JPA entiti
 1. Add the plugin in your build.gradle;
 
 ```groovy
+plugins {
+    id "gae.piaz.layer3gen" version "1.9"
+}
+```
+or you can use gradle [legacy plugin](https://docs.gradle.org/current/userguide/plugins.html#sec:old_plugin_application) for older gradle versions:
+
+```groovy
 buildscript {
     dependencies {
 	classpath "gae.piaz:layer3gen:1.9"
@@ -22,13 +29,7 @@ buildscript {
 // ...
 apply plugin: 'gae.piaz.layer3gen'
 ```
-or for gradle version above 2.1
 
-```groovy
-plugins {
-    id "gae.piaz.layer3gen" version "1.9"
-}
-```
 2. Create a file named _3layer-settings.yml_ (you willl find an example below) in the directory src/main/resources/;
 3. Run the gradle task.
 
@@ -87,12 +88,13 @@ public class BooksService implements CrudService<Books,java.lang.Integer> {
     }
 
     @Override
-    public Page<Book> read(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Books> find(Books entity, Pageable pageable) {
+        Example<Books> example = Example.of(entity);
+        return repository.findAll(example,pageable);
     }
 
     @Override
-    public Optional<Book> readOne(java.lang.Integer primaryKey) {
+    public Optional<Book> getOne(java.lang.Integer primaryKey) {
         return repository.findById(primaryKey);
     }
 
@@ -129,17 +131,19 @@ public class BooksControllerDTO implements CrudController<BooksDTO,java.lang.Int
     }
 
     @Override
-    public ResponseEntity<Page<BookDTO>> read(
+    public ResponseEntity<Page<BooksDTO>> find(
+            @RequestBody BooksDTO dto,
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size) {
         Pageable pageable = PageRequest.of(page,size);
-        Page<BookDTO> pages = service.read(pageable).map(mapper::toDto);
+        Books entity = mapper.toEntity(dto);
+        Page<BooksDTO> pages = service.find(entity, pageable).map(mapper::toDto);
         return ResponseEntity.ok(pages);
     }
 
     @Override
-    public ResponseEntity<BookDTO> readOne(@PathVariable("id") java.lang.Integer primaryKey) {
-        Optional<Book> entity = service.readOne(primaryKey);
+    public ResponseEntity<BookDTO> getOne(@PathVariable("id") java.lang.Integer primaryKey) {
+        Optional<Book> entity = service.getOne(primaryKey);
         return entity.map(e -> ResponseEntity.ok(mapper.toDto(e))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
