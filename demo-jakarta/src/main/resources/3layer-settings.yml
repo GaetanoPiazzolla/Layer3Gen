@@ -1,8 +1,9 @@
-projectPath: /Users/Gaetano_Piazzolla/Workspaces/workspace_private/Layer3Gen/demo-jakarta
+projectPath: /home/workspace/demo-jackarta
 outputDirectory : src/main/java
 options:
   dtoLayer : true
   serviceInterface: true
+  entityControllers: true
 
 inputPackages:
   jpaEntities : com.example.demo.model

@@ -26,7 +26,7 @@ or for gradle version above 2.1
 
 ```groovy
 plugins {
-    id "gae.piaz.layer3gen" version "1.8"
+    id "gae.piaz.layer3gen" version "1.9"
 }
 ```
 2. Create a file named _3layer-settings.yml_ (you willl find an example below) in the directory src/main/resources/;
@@ -38,8 +38,8 @@ gradlew clean build layer3gen
 
 ## 3layer-settings.yml configuration template:
 ```yml
-projectPath: /home/tano/workspace_autogenerate/springboot-3layer-generator/demo
-# projectPath: c://workspace_private/springboot-3layer-generator/demo
+projectPath: /home/yourproject/demo
+# projectPath: c://workspace/demo
 classesDirectory: build/classes/java/main
 outputDirectory : src/main/java
 options:
