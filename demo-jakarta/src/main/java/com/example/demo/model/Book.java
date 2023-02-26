@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * The persistent class for the books database table.
- * 
+ *
  */
 @Entity
 @Table(name="books")

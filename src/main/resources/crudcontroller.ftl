@@ -18,8 +18,9 @@ public interface CrudController<O,P>{
     @PutMapping
     ResponseEntity<O> update(O object);
 
-    @PostMapping("find")
-    ResponseEntity<Page<O>> read(O object, Integer page, Integer size);
+    @GetMapping("list")
+    ResponseEntity<Page<O>> read(Integer page, Integer size);
+
     @GetMapping("{id}")
     ResponseEntity<O> readOne(P primaryKey);
 

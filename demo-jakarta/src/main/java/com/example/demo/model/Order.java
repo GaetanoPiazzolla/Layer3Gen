@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * The persistent class for the orders database table.
- * 
+ *
  */
 @Entity
 @Table(name="orders")
