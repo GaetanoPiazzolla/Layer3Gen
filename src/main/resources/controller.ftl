@@ -32,16 +32,17 @@ public class ${entityClass}Controller implements CrudController<${entityClass},$
     }
 
     @Override
-    public ResponseEntity<Page<${entityClass}>> read(
+    public ResponseEntity<Page<${entityClass}>> find(
+            @RequestBody ${entityClass} entity,
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size) {
         Pageable pageable = PageRequest.of(page,size);
-        return ResponseEntity.ok(service.read(pageable));
+        return ResponseEntity.ok(service.find(entity,pageable));
     }
 
     @Override
-    public ResponseEntity<${entityClass}> readOne(@PathVariable("id") ${primaryKeyClass} primaryKey) {
-        return service.readOne(primaryKey).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<${entityClass}> getOne(@PathVariable("id") ${primaryKeyClass} primaryKey) {
+        return service.getOne(primaryKey).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override

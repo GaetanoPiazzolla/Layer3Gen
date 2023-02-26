@@ -20,11 +20,7 @@ import java.util.Set;
 @Slf4j
 public class CodeGenerator {
 
-    // Utility class such CodeGenerator that have all method as static should have private constructor
-    // Code smell : java:S1118
-    private CodeGenerator() {
-        throw new IllegalStateException("Utility class");
-    }
+    private CodeGenerator() { }
 
     private static CodeGeneratorConfig config;
 

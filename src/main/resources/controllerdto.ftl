@@ -41,17 +41,19 @@ public class ${entityClass}ControllerDTO implements CrudController<${entityClass
     }
 
     @Override
-    public ResponseEntity<Page<${entityClass}DTO>> read(
+    public ResponseEntity<Page<${entityClass}DTO>> find(
+            @RequestBody ${entityClass}DTO dto,
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size) {
         Pageable pageable = PageRequest.of(page,size);
-        Page<${entityClass}DTO> pages = service.read(pageable).map(mapper::toDto);
+        ${entityClass} entity = mapper.toEntity(dto);
+        Page<${entityClass}DTO> pages = service.find(entity, pageable).map(mapper::toDto);
         return ResponseEntity.ok(pages);
     }
 
     @Override
-    public ResponseEntity<${entityClass}DTO> readOne(@PathVariable("id") ${primaryKeyClass} primaryKey) {
-         Optional<${entityClass}> entity = service.readOne(primaryKey);
+    public ResponseEntity<${entityClass}DTO> getOne(@PathVariable("id") ${primaryKeyClass} primaryKey) {
+         Optional<${entityClass}> entity = service.getOne(primaryKey);
          return entity.map(e -> ResponseEntity.ok(mapper.toDto(e))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

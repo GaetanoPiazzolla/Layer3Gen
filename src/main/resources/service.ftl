@@ -30,12 +30,13 @@ public class ${entityClass}Service implements CrudService<${entityClass},${prima
     }
 
     @Override
-    public Page<${entityClass}> read(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<${entityClass}> find(${entityClass} entity, Pageable pageable) {
+        Example<${entityClass}> example = Example.of(entity);
+        return repository.findAll(example,pageable);
     }
 
     @Override
-    public Optional<${entityClass}> readOne(${primaryKeyClass} primaryKey) {
+    public Optional<${entityClass}> getOne(${primaryKeyClass} primaryKey) {
         return repository.findById(primaryKey);
     }
 
