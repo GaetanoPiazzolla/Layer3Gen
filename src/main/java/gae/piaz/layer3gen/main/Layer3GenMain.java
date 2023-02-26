@@ -6,13 +6,12 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class Layer3GenMain {
 
-    public static void main(String[] args) throws Exception {
-        String configFile = "";
-        if(!ArrayUtils.isEmpty(args)){
-            configFile = args[0];
-        }
-        CodeGeneratorConfig config = CodeGeneratorConfig.load(configFile,false);
-        CodeGenerator.run(config,ClassLoaderBuilderMain.getClassLoader(config));
+  public static void main(String[] args) throws Exception {
+    String configFile = "";
+    if (!ArrayUtils.isEmpty(args)) {
+      configFile = args[0];
     }
-
+    CodeGeneratorConfig config = CodeGeneratorConfig.load(configFile, false);
+    CodeGenerator.run(config, ClassLoaderBuilderMain.getClassLoader(config));
+  }
 }

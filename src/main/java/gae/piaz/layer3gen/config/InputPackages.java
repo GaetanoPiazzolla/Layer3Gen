@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class InputPackages {
-    private String jpaEntities;
+  private String jpaEntities;
 }

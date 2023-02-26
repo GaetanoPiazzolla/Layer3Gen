@@ -4,6 +4,7 @@ plugins {
 	id 'java-gradle-plugin'
 	id 'maven-publish'
 	id 'application'
+	id "com.diffplug.spotless" version "6.15.0"
 	id 'com.gradle.plugin-publish' version '0.12.0'
 }
 
@@ -74,3 +75,12 @@ installDist {
 	exclude 'gradle-api-6.6.1.jar'
 }
 
+spotless {
+	java {
+		importOrder()
+		removeUnusedImports()
+		cleanthat()
+		googleJavaFormat()
+		formatAnnotations()
+	}
+}

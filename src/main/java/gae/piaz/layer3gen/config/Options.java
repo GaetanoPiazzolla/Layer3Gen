@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Options {
-    private Boolean dtoLayer;
-    private Boolean serviceInterface;
-    private Boolean entityControllers;
+  private Boolean dtoLayer;
+  private Boolean serviceInterface;
+  private Boolean entityControllers;
 }
